@@ -75,7 +75,6 @@ window_curr_state = [2,4,6,8]
 numbers =[2,4,6,8]
 avg = 0
 
-
 def update_state(new_number: int = None):
         window_prev_state = window_curr_state[:]
         window_curr_state.append(new_number)
