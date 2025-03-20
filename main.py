@@ -53,25 +53,28 @@
 from fastapi import FastAPI
 
 app = FastAPI()
-window_prev_state = []
-window_curr_state = [2,4,6,8]
-numbers =[2,4,6,8]
-avg = 0
 
 class State:
-  
-    def update_state(new_number: int):
-        window_prev_state = window_curr_state[:]
-        window_curr_state.append(new_number)
-        numbers = window_prev_state +window_curr_state
-        avg = sum(numbers) / len(numbers) if numbers else 0
+    def __init__(self):
+        self.window_prev_state = []
+        self.window_curr_state = []
+        self.numbers = []
+        self.avg = 0
+
+    def update_state(self, new_number: int):
+        self.window_prev_state = self.window_curr_state[:]
+        
+        self.window_curr_state.append(new_number)
+        
+        self.numbers = self.window_prev_state + self.window_curr_state
+        self.avg = sum(self.numbers) / len(self.numbers) if self.numbers else 0
 
     def get_response(self):
         return {
-            "windowPrevState": window_prev_state,
-            "windowCurrState": window_curr_state,
-            "numbers": numbers,
-            "avg": round(avg, 2)
+            "windowPrevState": self.window_prev_state,
+            "windowCurrState": self.window_curr_state,
+            "numbers": self.numbers,
+            "avg": round(self.avg, 2)
         }
 
 state = State()
